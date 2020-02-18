@@ -5,19 +5,26 @@
 ## Makefile
 ##
 
-SRC_NO_TEST			=	src/main.c
+SRC_NO_TEST			=	src/main.c						\
+						src/navy.c
 
-SRC_TEST			=	src/navy.c
+SRC_TEST			=	src/errors.c					\
+						src/signal_handler.c			\
+						src/send_receive_number.c		\
+						src/check_navy_on_gameboard.c	\
+						src/print_gameboard.c			\
+						src/init_ships.c				\
+						src/destroy_ships.c
 
 SRC					=	$(SRC_NO_TEST) $(SRC_TEST)
 
-CFLAGS				=	-Wall -Wextra -O2
+CFLAGS				=	-Wall -Wextra
 
 CPPFLAGS			=	-I./include/
 
 override LDFLAGS	=	-L./lib
 
-override LDLIBS		+=	-lmy -lncurses
+override LDLIBS		+=	-lmy
 
 OBJ					=	$(SRC:.c=.o)
 
@@ -25,6 +32,7 @@ NAME				=	navy
 
 all:	$(NAME)
 
+$(NAME):	CFLAGS += -O2
 $(NAME):	$(LDLIBS) $(OBJ)
 	$(CC) -o $(NAME) $(OBJ) $(LDFLAGS) $(LDLIBS)
 

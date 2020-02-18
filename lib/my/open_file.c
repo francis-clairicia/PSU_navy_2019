@@ -26,7 +26,7 @@ char *open_file(char const *filepath, int (*error)(char const *))
         buffer[size] = '\0';
     }
     close(fd);
-    if (error(buffer)) {
+    if (error != NULL && error(buffer)) {
         free(buffer);
         return (NULL);
     }

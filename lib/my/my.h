@@ -61,5 +61,6 @@ int get_next_line(char **line, int fd);
 char *join_path(char const *path_1, char const *path_2);
 char *my_memset(char *buffer, char c, unsigned long size);
 char *my_malloc(unsigned long size);
+void my_free_int_array(int **array);
 
 #endif
