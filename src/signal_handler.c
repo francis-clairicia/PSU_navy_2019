@@ -13,7 +13,7 @@
 #include <signal.h>
 #include <stdbool.h>
 #include <unistd.h>
-#include <time.h>
+#include "navy.h"
 
 struct global_values
 {

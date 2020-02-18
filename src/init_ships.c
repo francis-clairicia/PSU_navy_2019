@@ -62,7 +62,9 @@ bool init_ships(ship_t ships[4], char * const * positions)
 {
     int i = 0;
 
-    for (i = 0; i < 4; i += 1)
-        init_ship(&ships[i], i, (positions != NULL) ? positions[i] : NULL);
+    for (i = 0; i < 4; i += 1) {
+        if (!init_ship(&ships[i], i, (positions != NULL) ? positions[i] : NULL))
+            return (false);
+    }
     return (true);
 }

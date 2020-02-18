@@ -44,7 +44,7 @@ int main(int ac, char *av[])
     if (buffer == NULL)
         return (84);
     map = my_str_to_word_array(buffer, "\n");
-    output = navy(((ac == 2) ? -1 : my_getnbr(av[1])), map);
+    output = navy_game(((ac == 2) ? -1 : my_getnbr(av[1])), map);
     my_free_word_array(map);
     free(buffer);
     return (output);

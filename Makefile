@@ -7,7 +7,9 @@
 
 SRC_NO_TEST			=	src/main.c						\
 						src/navy.c						\
-						src/gameplay.c
+						src/gameplay.c					\
+						src/play_my_turn.c				\
+						src/wait_enemy_turn.c
 
 SRC_TEST			=	src/errors.c					\
 						src/signal_handler.c			\
@@ -15,7 +17,10 @@ SRC_TEST			=	src/errors.c					\
 						src/check_navy_on_gameboard.c	\
 						src/print_gameboard.c			\
 						src/init_ships.c				\
-						src/destroy_ships.c
+						src/init_navy.c					\
+						src/hit_navy.c					\
+						src/find_ship_by_pos.c			\
+						src/all_navy_destroyed.c
 
 SRC					=	$(SRC_NO_TEST) $(SRC_TEST)
 

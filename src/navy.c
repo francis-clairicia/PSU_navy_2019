@@ -18,7 +18,7 @@ static int etablish_connection(int player_pid)
         my_putstr("waiting for enemy connection...\n");
         player_pid = receive_number(ALL_PID, 16);
         usleep(100);
-        send_number(player_pid, 1, 1);
+        send_bit(player_pid, true);
         my_putstr("\nenemy connected\n");
     } else {
         send_number(player_pid, getpid(), 16);
@@ -29,17 +29,19 @@ static int etablish_connection(int player_pid)
 
 }
 
-int navy(pid_t player_pid, char * const *positions)
+int navy_game(pid_t player_pid, char * const *positions)
 {
-    ship_t my_ships[4];
-    ship_t enemy_ships[4];
+    navy_t *my_navy = create_navy(positions);
+    navy_t *enemy_navy = create_navy(NULL);
+    bool turn = (player_pid < 0) ? true : false;
+    int output = 0;
 
-    if (!init_ships(my_ships, positions) || !init_ships(enemy_ships, NULL))
+    if (my_navy == NULL || enemy_navy == NULL)
         return (84);
     player_pid = etablish_connection(player_pid);
     my_putchar('\n');
-    gameplay_navy(my_ships, enemy_ships);
-    destroy_ships(my_ships);
-    destroy_ships(enemy_ships);
-    return (0);
+    output = gameplay_navy(my_navy, enemy_navy, player_pid, turn);
+    destroy_navy(my_navy);
+    destroy_navy(enemy_navy);
+    return (output);
 }

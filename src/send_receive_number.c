@@ -13,7 +13,7 @@
 
 int kill(pid_t pid, int sig);
 
-void send_number(pid_t pid, int number, int size)
+bool send_number(pid_t pid, int number, int size)
 {
     long mask = 1;
     bool bit;
@@ -21,10 +21,12 @@ void send_number(pid_t pid, int number, int size)
 
     for (i = 0; i < size; i += 1) {
         bit = ((number & mask) != 0);
-        send_bit(pid, bit);
-        usleep(100);
+        if (!send_bit(pid, bit))
+            return (false);
         mask = mask << 1;
+        usleep(100);
     }
+    return (true);
 }
 
 int receive_number(pid_t pid, int size)

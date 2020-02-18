@@ -31,21 +31,36 @@ typedef struct ship
     bool destroyed;
 } ship_t;
 
+typedef struct navy
+{
+    int map[8][8];
+    ship_t ships[4];
+} navy_t;
+
 #define ALL_PID -1
 
-int navy(pid_t player_pid, char * const *positions);
+int navy_game(pid_t player_pid, char * const *positions);
 int error_buffer(char const *buffer);
 bool check_navy_on_gameboard(char * const *positions);
+void print_gameboard(navy_t *navy);
+int gameplay_navy(navy_t *my_navy, navy_t *enemy_navy,
+    pid_t player_pid, bool turn);
+
 bool init_ships(ship_t ships[4], char * const * positions);
-void destroy_ships(ship_t ships[4]);
-void print_gameboard(ship_t ships[4]);
-int gameplay_navy(ship_t my_ships[4], ship_t enemy_ships[4]);
+navy_t *create_navy(char * const *positions);
+void destroy_navy(navy_t *navy);
+ship_t *find_ship_by_pos(ship_t ships[4], vector_t pos, int *square_index);
+bool hit_my_navy(navy_t *navy, vector_t pos);
+void hit_enemy_navy(navy_t *navy, vector_t pos, bool hit);
+
+int play_my_turn(pid_t player_pid, navy_t *enemy_navy);
+int wait_enemy_turn(pid_t player_pid, navy_t *my_navy);
+bool all_navy_destroyed(navy_t *navy);
 
 void bind_sigusr_signals(void);
 bool send_bit(pid_t pid, bool bit);
-void send_number(pid_t pid, int number, int size);
+bool send_number(pid_t pid, int number, int size);
 bool receive_bit(pid_t pid);
 int receive_number(pid_t pid, int size);
-void signal_user_handler(int signum);
 
 #endif
