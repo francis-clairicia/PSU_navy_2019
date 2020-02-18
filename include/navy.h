@@ -39,6 +39,7 @@ bool check_navy_on_gameboard(char * const *positions);
 bool init_ships(ship_t ships[4], char * const * positions);
 void destroy_ships(ship_t ships[4]);
 void print_gameboard(ship_t ships[4]);
+int gameplay_navy(ship_t my_ships[4], ship_t enemy_ships[4]);
 
 void bind_sigusr_signals(void);
 bool send_bit(pid_t pid, bool bit);

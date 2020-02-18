@@ -45,7 +45,7 @@ bool receive_bit(pid_t pid)
 void signal_user_handler(int signum, siginfo_t *infos, void *ucontext)
 {
     (void)ucontext;
-    if (GLOBAL.sending_pid <= 0 && infos->si_pid != GLOBAL.sending_pid) {
+    if (GLOBAL.sending_pid >= 0 && infos->si_pid != GLOBAL.sending_pid) {
         GLOBAL.bit_received = -1;
     } else {
         if (signum == SIGUSR1)

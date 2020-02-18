@@ -9,6 +9,13 @@
 #include "my_printf.h"
 #include "navy.h"
 
+static void set_square(char (*map)[9], int x, int y, int value)
+{
+    if (x < 0 || y < 0)
+        return;
+    map[y][x] = value;
+}
+
 static void set_ships(char (*map)[9], ship_t ships[4])
 {
     int i = 0;
@@ -22,7 +29,8 @@ static void set_ships(char (*map)[9], ship_t ships[4])
             x = ships[i].squares[j].pos.x;
             y = ships[i].squares[j].pos.y;
             value = ships[i].length + 48;
-            map[y][x] = (ships[i].squares[j].destroyed) ? 'x' : value;
+            value = (ships[i].squares[j].destroyed) ? 'x' : value;
+            set_square(map, x, y, value);
         }
     }
 }

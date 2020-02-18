@@ -6,7 +6,8 @@
 ##
 
 SRC_NO_TEST			=	src/main.c						\
-						src/navy.c
+						src/navy.c						\
+						src/gameplay.c
 
 SRC_TEST			=	src/errors.c					\
 						src/signal_handler.c			\
