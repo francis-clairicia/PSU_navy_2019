@@ -54,16 +54,17 @@ static vector_t get_coords(navy_t *enemy_navy)
 int play_my_turn(pid_t player_pid, navy_t *enemy_navy)
 {
     vector_t pos;
+    int square = 0;
     int status = 0;
 
     if (enemy_navy == NULL)
         return (false);
     pos = get_coords(enemy_navy);
-    if (!send_number(player_pid, pos.x, 32) || pos.x < 0)
-        return (false);
-    receive_bit(player_pid);
-    usleep(100);
-    if (!send_number(player_pid, pos.y, 32) || pos.y < 0)
+    if (pos.x < 0 || pos.y < 0)
+        square = -1;
+    else
+        square = (pos.x << 3) | pos.y;
+    if (!send_number(player_pid, square, 32) || square < 0)
         return (false);
     status = receive_number(player_pid, 2);
     hit_enemy_navy(enemy_navy, pos, (status > 0));

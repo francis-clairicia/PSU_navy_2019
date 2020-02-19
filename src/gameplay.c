@@ -37,7 +37,6 @@ static int play(navy_t *my_navy, navy_t *enemy, pid_t player_pid, bool *turn)
             return (2);
         *turn = !(*turn);
     }
-    my_putchar('\n');
     return (true);
 }
 
@@ -56,6 +55,6 @@ int gameplay_navy(navy_t *my_navy, navy_t *enemy_navy,
         print_gameplay(my_navy, enemy_navy);
         loop = (gameplay_status == true);
     }
-    my_printf("%s\n", winner[turn]);
+    my_printf("\n%s\n", winner[turn]);
     return (!turn);
 }

@@ -6,7 +6,6 @@
 */
 
 #include "navy.h"
-#include "my.h"
 #include "my_printf.h"
 
 static void check_for_destroyed_ship(ship_t *ship)

@@ -15,15 +15,11 @@ int kill(pid_t pid, int sig);
 
 bool send_number(pid_t pid, int number, int size)
 {
-    long mask = 1;
-    bool bit;
     int i = 0;
 
     for (i = 0; i < size; i += 1) {
-        bit = ((number & mask) != 0);
-        if (!send_bit(pid, bit))
+        if (!send_bit(pid, ((number & (1 << i)) != 0)))
             return (false);
-        mask = mask << 1;
         usleep(100);
     }
     return (true);
@@ -33,12 +29,8 @@ int receive_number(pid_t pid, int size)
 {
     int i = 0;
     int number = 0;
-    int mask = 0;
 
-    for (i = 0; i < size; i += 1) {
-        mask = receive_bit(pid) << i;
-        number = number | mask;
-        mask = 0;
-    }
+    for (i = 0; i < size; i += 1)
+        number = number | (receive_bit(pid) << i);
     return (number);
 }
