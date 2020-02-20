@@ -16,12 +16,12 @@ static int etablish_connection(int player_pid)
     my_printf("my_pid: %d\n", getpid());
     if (player_pid < 0) {
         my_putstr("waiting for enemy connection...\n");
-        player_pid = receive_number(ALL_PID, 16);
+        player_pid = receive_number(ALL_PID, 32);
         usleep(1100);
         send_bit(player_pid, true);
         my_putstr("\nenemy connected\n");
     } else {
-        send_number(player_pid, getpid(), 16);
+        send_number(player_pid, getpid(), 32);
         receive_bit(player_pid);
         my_putstr("successfully connected\n");
     }
