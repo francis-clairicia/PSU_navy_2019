@@ -12,8 +12,6 @@ static void check_for_destroyed_ship(ship_t *ship)
 {
     int i = 0;
 
-    if (ship->destroyed)
-        return;
     for (i = 0; i < ship->length; i += 1) {
         if (ship->squares[i].destroyed == false)
             return;

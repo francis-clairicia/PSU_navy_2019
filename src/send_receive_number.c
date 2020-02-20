@@ -5,10 +5,6 @@
 ** send_recieve_number.c
 */
 
-#include <sys/types.h>
-#include <signal.h>
-#include <stdbool.h>
-#include <unistd.h>
 #include "navy.h"
 
 int kill(pid_t pid, int sig);
@@ -20,7 +16,7 @@ bool send_number(pid_t pid, int number, int size)
     for (i = 0; i < size; i += 1) {
         if (!send_bit(pid, ((number & (1 << i)) != 0)))
             return (false);
-        usleep(100);
+        usleep(1000);
     }
     return (true);
 }

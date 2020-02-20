@@ -16,10 +16,10 @@ Test(send_number_and_receive_number, send_informations_to_an_another_process)
 
     bind_sigusr_signals();
     if (child_pid == 0) {
-        send_number(parent_pid, -29, 32);
+        cr_assert_eq(send_number(parent_pid, -29, 32), true);
         cr_assert_eq(receive_number(parent_pid, 7), 55);
     } else {
         cr_assert_eq(receive_number(child_pid, 32), -29);
-        send_number(child_pid, 55, 7);
+        cr_assert_eq(send_number(child_pid, 55, 7), true);
     }
 }

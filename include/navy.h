@@ -34,22 +34,24 @@ typedef struct ship
 typedef struct navy
 {
     int map[8][8];
-    ship_t ships[4];
+    ship_t *ships;
 } navy_t;
 
 #define ALL_PID -1
 
-int navy_game(pid_t player_pid, char * const *positions);
-int error_buffer(char const *buffer);
+int navy_game(pid_t player_pid, char const *filepath);
+int error_buffer(char * const *buffer);
 bool check_navy_on_gameboard(char * const *positions);
 void print_gameboard(navy_t *navy);
 int gameplay_navy(navy_t *my_navy, navy_t *enemy_navy,
     pid_t player_pid, bool turn);
 
-bool init_ships(ship_t ships[4], char * const * positions);
+navy_t *create_empty_navy(void);
 navy_t *create_navy(char * const *positions);
+navy_t *create_navy_from_file(char const *filepath);
 void destroy_navy(navy_t *navy);
-ship_t *find_ship_by_pos(ship_t ships[4], vector_t pos, int *square_index);
+bool init_ships(ship_t *ships, char * const * positions);
+ship_t *find_ship_by_pos(ship_t *ships, vector_t pos, int *square_index);
 bool hit_my_navy(navy_t *navy, vector_t pos);
 void hit_enemy_navy(navy_t *navy, vector_t pos, bool hit);
 

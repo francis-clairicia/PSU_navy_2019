@@ -28,10 +28,12 @@ static bool match_square(ship_t *ship, vector_t pos, int *square_index)
     return (match);
 }
 
-ship_t *find_ship_by_pos(ship_t ships[4], vector_t pos, int *square_index)
+ship_t *find_ship_by_pos(ship_t *ships, vector_t pos, int *square_index)
 {
     int i = 0;
 
+    if (ships == NULL)
+        return (NULL);
     for (i = 0; i < 4; i += 1) {
         if (match_square(&ships[i], pos, square_index))
             return (&ships[i]);

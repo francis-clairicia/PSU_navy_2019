@@ -14,8 +14,6 @@ static bool set_vertical_navy(int (*gb)[8], int length, int x, int y)
     int i = 0;
     int yi = 0;
 
-    if (y + length > 8)
-        return (false);
     for (i = 0; i < length; i += 1) {
         yi = y + i;
         if (gb[yi][x] != 0)
@@ -30,8 +28,6 @@ static bool set_horizontal_navy(int (*gb)[8], int length, int x, int y)
     int i = 0;
     int xi = 0;
 
-    if (x + length > 8)
-        return (false);
     for (i = 0; i < length; i += 1) {
         xi = x + i;
         if (gb[y][xi] != 0)

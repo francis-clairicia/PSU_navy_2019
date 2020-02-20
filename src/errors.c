@@ -57,19 +57,18 @@ static bool error_line(char const *line, bool *navy)
     return (free_array_and_return(splitted_line, false));
 }
 
-int error_buffer(char const *buffer)
+int error_buffer(char * const *buffer)
 {
     int i = 0;
     bool navy_already_set[4] = {false, false, false, false};
-    char **map = my_str_to_word_array(buffer, "\n");
 
-    if (map == NULL)
+    if (buffer == NULL)
         return (true);
-    if (my_array_len(map) != 4)
-        return (free_array_and_return(map, true));
-    for (i = 0; map[i] != NULL; i += 1) {
-        if (error_line(map[i], navy_already_set))
-            return (free_array_and_return(map, true));
+    if (my_array_len(buffer) != 4)
+        return (true);
+    for (i = 0; buffer[i] != NULL; i += 1) {
+        if (error_line(buffer[i], navy_already_set))
+            return (true);
     }
-    return (free_array_and_return(map, !check_navy_on_gameboard(map)));
+    return (!check_navy_on_gameboard(buffer));
 }

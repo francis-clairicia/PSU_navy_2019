@@ -40,7 +40,7 @@ static vector_t get_coords(navy_t *enemy_navy)
     int x = 0;
     int y = 0;
 
-    usleep(1000);
+    usleep(5000);
     do {
         my_putstr("attack: ");
         if (!get_next_line(&line, 0))
@@ -48,6 +48,7 @@ static vector_t get_coords(navy_t *enemy_navy)
     } while (!valid_input(line, enemy_navy));
     x = line[0] - 'A';
     y = line[1] - '1';
+    free(line);
     return ((vector_t){x, y});
 }
 
@@ -68,5 +69,5 @@ int play_my_turn(pid_t player_pid, navy_t *enemy_navy)
         return (false);
     status = receive_number(player_pid, 2);
     hit_enemy_navy(enemy_navy, pos, (status > 0));
-    return ((status == 0) ? true : status);
+    return ((status == 2) ? 2 : true);
 }

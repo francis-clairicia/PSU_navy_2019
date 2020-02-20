@@ -10,16 +10,6 @@
 #include "navy.h"
 #include "my.h"
 
-static void init_square_buffer(ship_t *ship)
-{
-    int i = 0;
-
-    for (i = 0; i < ship->length; i += 1) {
-        ship->squares[i].pos = (vector_t){-1, -1};
-        ship->squares[i].destroyed = false;
-    }
-}
-
 static void set_ship(ship_t *ship, char const *first, char const *last)
 {
     int i = 0;
@@ -39,31 +29,32 @@ static void set_ship(ship_t *ship, char const *first, char const *last)
     }
 }
 
-static bool init_ship(ship_t *ship, int i, char const *position)
+static bool init_ship(ship_t *ship, char const *position)
 {
     char **infos = my_str_to_word_array(position, ":");
 
-    ship->length = (infos != NULL) ? my_getnbr(infos[0]) : i + 2;
+    if (ship == NULL || infos == NULL)
+        return (false);
+    ship->length = my_getnbr(infos[0]);
     ship->destroyed = false;
     ship->squares = malloc(sizeof(square_t) * ship->length);
     if (ship->squares == NULL) {
         my_free_word_array(infos);
         return (false);
     }
-    if (infos != NULL)
-        set_ship(ship, infos[1], infos[2]);
-    else
-        init_square_buffer(ship);
+    set_ship(ship, infos[1], infos[2]);
     my_free_word_array(infos);
     return (true);
 }
 
-bool init_ships(ship_t ships[4], char * const * positions)
+bool init_ships(ship_t *ships, char * const * positions)
 {
     int i = 0;
 
+    if (ships == NULL || positions == NULL)
+        return (NULL);
     for (i = 0; i < 4; i += 1) {
-        if (!init_ship(&ships[i], i, (positions != NULL) ? positions[i] : NULL))
+        if (!init_ship(&ships[i], positions[i]))
             return (false);
     }
     return (true);

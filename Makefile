@@ -16,8 +16,9 @@ SRC_TEST			=	src/errors.c					\
 						src/send_receive_number.c		\
 						src/check_navy_on_gameboard.c	\
 						src/print_gameboard.c			\
+						src/create_navy.c				\
+						src/destroy_navy.c				\
 						src/init_ships.c				\
-						src/init_navy.c					\
 						src/hit_navy.c					\
 						src/find_ship_by_pos.c			\
 						src/all_navy_destroyed.c

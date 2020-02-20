@@ -32,20 +32,9 @@ static int error_args(int ac, char *av[])
 
 int main(int ac, char *av[])
 {
-    char **map = NULL;
-    char *buffer = NULL;
-    int output = 0;
-
     if (ac == 2 && my_strcmp(av[1], "-h") == 0)
         return (print_help());
     if (error_args(ac, av))
         return (84);
-    buffer = open_file(av[1 + (ac == 3)], error_buffer);
-    if (buffer == NULL)
-        return (84);
-    map = my_str_to_word_array(buffer, "\n");
-    output = navy_game(((ac == 2) ? -1 : my_getnbr(av[1])), map);
-    my_free_word_array(map);
-    free(buffer);
-    return (output);
+    return (navy_game(((ac == 2) ? -1 : my_getnbr(av[1])), av[1 + (ac == 3)]));
 }

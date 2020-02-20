@@ -17,7 +17,7 @@ static int etablish_connection(int player_pid)
     if (player_pid < 0) {
         my_putstr("waiting for enemy connection...\n");
         player_pid = receive_number(ALL_PID, 16);
-        usleep(100);
+        usleep(1100);
         send_bit(player_pid, true);
         my_putstr("\nenemy connected\n");
     } else {
@@ -29,10 +29,10 @@ static int etablish_connection(int player_pid)
 
 }
 
-int navy_game(pid_t player_pid, char * const *positions)
+int navy_game(pid_t player_pid, char const *filepath)
 {
-    navy_t *my_navy = create_navy(positions);
-    navy_t *enemy_navy = create_navy(NULL);
+    navy_t *my_navy = create_navy_from_file(filepath);
+    navy_t *enemy_navy = create_empty_navy();
     bool turn = (player_pid < 0) ? true : false;
     int output = 0;
 
