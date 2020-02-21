@@ -36,8 +36,11 @@ int navy_game(pid_t player_pid, char const *filepath)
     bool turn = (player_pid < 0) ? true : false;
     int output = 0;
 
-    if (my_navy == NULL || enemy_navy == NULL)
+    if (my_navy == NULL || enemy_navy == NULL) {
+        destroy_navy(my_navy);
+        destroy_navy(enemy_navy);
         return (84);
+    }
     player_pid = etablish_connection(player_pid);
     my_putchar('\n');
     output = gameplay_navy(my_navy, enemy_navy, player_pid, turn);

@@ -16,9 +16,9 @@ int wait_enemy_turn(pid_t player_pid, navy_t *my_navy)
     int status = 0;
 
     my_putstr("waiting for enemy's attack...\n");
-    square = receive_number(player_pid, 32);
+    square = receive_number(player_pid, 7);
     usleep(1100);
-    if (square < 0)
+    if (square & (1 << 6))
         return (false);
     pos.x = (square >> 3) & 7;
     pos.y = (square >> 0) & 7;
@@ -27,7 +27,7 @@ int wait_enemy_turn(pid_t player_pid, navy_t *my_navy)
         if (all_navy_destroyed(my_navy))
             status = 2;
     }
-    if (pos.y < 0 || !send_number(player_pid, status, 2))
+    if (!send_number(player_pid, status, 2))
         return (false);
     return ((status == 2) ? 2 : true);
 }

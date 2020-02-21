@@ -6,9 +6,9 @@
 */
 
 #include <unistd.h>
+#include <stdlib.h>
 #include "navy.h"
 #include "my.h"
-#include "my_printf.h"
 
 static bool wrong_input(void)
 {
@@ -21,17 +21,15 @@ static bool valid_input(char const *line, navy_t *enemy_navy)
     int x = 0;
     int y = 0;
 
-    if (line == NULL)
+    if (line == NULL || my_strlen(line) != 2)
         return (wrong_input());
-    if (my_strlen(line) != 2)
-        return (wrong_input());
-    if (!my_strchr("ABCDEFGH", line[0]))
-        return (wrong_input());
-    if (!my_strchr("12345678", line[1]))
+    if (!my_strchr("ABCDEFGH", line[0]) || !my_strchr("12345678", line[1]))
         return (wrong_input());
     x = line[0] - 'A';
     y = line[1] - '1';
-    return (enemy_navy->map[y][x] == 0);
+    if (enemy_navy->map[y][x] != 0)
+        return (wrong_input());
+    return (true);
 }
 
 static vector_t get_coords(navy_t *enemy_navy)
@@ -62,10 +60,10 @@ int play_my_turn(pid_t player_pid, navy_t *enemy_navy)
         return (false);
     pos = get_coords(enemy_navy);
     if (pos.x < 0 || pos.y < 0)
-        square = -1;
+        square = (1 << 6);
     else
         square = (pos.x << 3) | pos.y;
-    if (!send_number(player_pid, square, 32) || square < 0)
+    if (!send_number(player_pid, square, 7) || square == (1 << 6))
         return (false);
     status = receive_number(player_pid, 2);
     hit_enemy_navy(enemy_navy, pos, (status > 0));
