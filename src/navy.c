@@ -21,7 +21,8 @@ static int etablish_connection(int player_pid)
         send_bit(player_pid, true);
         my_putstr("\nenemy connected\n");
     } else {
-        send_number(player_pid, getpid(), 32);
+        if (!send_number(player_pid, getpid(), 32))
+            return (-1);
         receive_bit(player_pid);
         my_putstr("successfully connected\n");
     }
@@ -42,6 +43,8 @@ int navy_game(pid_t player_pid, char const *filepath)
         return (84);
     }
     player_pid = etablish_connection(player_pid);
+    if (player_pid < 0)
+        return (84);
     my_putchar('\n');
     output = gameplay_navy(my_navy, enemy_navy, player_pid, turn);
     destroy_navy(my_navy);
