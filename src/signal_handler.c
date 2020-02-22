@@ -11,6 +11,8 @@
 #include <unistd.h>
 #include "navy.h"
 
+static struct global_values GLOBAL = {0, 0};
+
 bool send_bit(pid_t pid, bool bit)
 {
     int signum = (bit == false) ? SIGUSR1 : SIGUSR2;

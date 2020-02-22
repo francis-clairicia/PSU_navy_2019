@@ -18,8 +18,6 @@ struct global_values
     bool bit_received;
 };
 
-static struct global_values GLOBAL = {0, 0};
-
 typedef struct vector
 {
     int x;

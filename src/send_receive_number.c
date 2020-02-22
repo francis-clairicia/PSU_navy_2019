@@ -5,14 +5,8 @@
 ** send_recieve_number.c
 */
 
-#ifndef _POSIX_C_SOURCE
-#define _POSIX_C_SOURCE 199309L
-#endif
-
 #include <time.h>
 #include "navy.h"
-
-#define MICRO_TO_NANO(usec) (usec * 1000)
 
 bool send_number(pid_t pid, int number, int size)
 {
