@@ -21,7 +21,7 @@ bool send_number(pid_t pid, int number, int size)
     for (i = 0; i < size; i += 1) {
         if (!send_bit(pid, ((number & (1 << i)) != 0)))
             return (false);
-        my_usleep(500);
+        my_usleep(1000);
     }
     return (true);
 }
@@ -33,6 +33,6 @@ int receive_number(pid_t pid, int size)
 
     for (i = 0; i < size; i += 1)
         number |= (receive_bit(pid) << i);
-    my_usleep(600);
+    my_usleep(1100);
     return (number);
 }
