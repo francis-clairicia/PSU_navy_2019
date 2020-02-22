@@ -16,11 +16,8 @@ Test(print_gameboard, print_the_navy_map)
 
     cr_redirect_stdout();
     cr_assert_not_null(navy);
-    cr_assert_not_null(navy->ships);
     cr_expect_eq(hit_my_navy(navy, (vector_t){0, 0}), false);
-    cr_expect_eq(navy->map[0][0], 1);
     cr_expect_eq(hit_my_navy(navy, (vector_t){2, 1}), true);
-    cr_expect_eq(navy->map[1][2], 2);
     print_gameboard(navy);
     cr_expect_stdout_eq_str("A1: missed\nC2: hit\n"
         " |A B C D E F G H\n"

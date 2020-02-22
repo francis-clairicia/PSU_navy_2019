@@ -5,21 +5,11 @@
 ** signal.c
 */
 
-#ifndef _POSIX_C_SOURCE
-#define _POSIX_C_SOURCE 199506L
-#endif
-
 #include <sys/types.h>
 #include <signal.h>
 #include <stdbool.h>
 #include <unistd.h>
 #include "navy.h"
-
-struct global_values
-{
-    pid_t sending_pid;
-    bool bit_received;
-};
 
 static struct global_values GLOBAL = {0, 0};
 

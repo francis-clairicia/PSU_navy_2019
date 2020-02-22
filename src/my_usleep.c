@@ -5,13 +5,8 @@
 ** my_usleep.c
 */
 
-#ifndef _POSIX_C_SOURCE
-#define _POSIX_C_SOURCE 199309L
-#endif
-
 #include <time.h>
-
-#define MICRO_TO_NANO(usec) (usec * 1000)
+#include "navy.h"
 
 int my_usleep(int useconds)
 {

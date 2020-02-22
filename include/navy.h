@@ -12,6 +12,12 @@
 #include <unistd.h>
 #include <stdbool.h>
 
+struct global_values
+{
+    pid_t sending_pid;
+    bool bit_received;
+};
+
 typedef struct vector
 {
     int x;
@@ -38,6 +44,7 @@ typedef struct navy
 } navy_t;
 
 #define ALL_PID -1
+#define MICRO_TO_NANO(usec) (usec * 1000)
 
 int navy_game(pid_t player_pid, char const *filepath);
 int error_buffer(char * const *buffer);
