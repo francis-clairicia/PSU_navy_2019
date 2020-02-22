@@ -5,9 +5,14 @@
 ** send_recieve_number.c
 */
 
+#ifndef _POSIX_C_SOURCE
+#define _POSIX_C_SOURCE 199309L
+#endif
+
+#include <time.h>
 #include "navy.h"
 
-int kill(pid_t pid, int sig);
+#define MICRO_TO_NANO(usec) (usec * 1000)
 
 bool send_number(pid_t pid, int number, int size)
 {
@@ -16,7 +21,7 @@ bool send_number(pid_t pid, int number, int size)
     for (i = 0; i < size; i += 1) {
         if (!send_bit(pid, ((number & (1 << i)) != 0)))
             return (false);
-        usleep(1000);
+        my_usleep(500);
     }
     return (true);
 }
@@ -27,6 +32,7 @@ int receive_number(pid_t pid, int size)
     int number = 0;
 
     for (i = 0; i < size; i += 1)
-        number = number | (receive_bit(pid) << i);
+        number |= (receive_bit(pid) << i);
+    my_usleep(600);
     return (number);
 }

@@ -17,7 +17,6 @@ static int etablish_connection(int player_pid)
     if (player_pid < 0) {
         my_putstr("waiting for enemy connection...\n");
         player_pid = receive_number(ALL_PID, 32);
-        usleep(1100);
         send_bit(player_pid, true);
         my_putstr("\nenemy connected\n");
     } else {

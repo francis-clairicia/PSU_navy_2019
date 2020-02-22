@@ -64,5 +64,6 @@ bool send_bit(pid_t pid, bool bit);
 bool send_number(pid_t pid, int number, int size);
 bool receive_bit(pid_t pid);
 int receive_number(pid_t pid, int size);
+int my_usleep(int useconds);
 
 #endif

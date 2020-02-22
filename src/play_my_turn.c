@@ -38,7 +38,6 @@ static vector_t get_coords(navy_t *enemy_navy)
     int x = 0;
     int y = 0;
 
-    usleep(5000);
     do {
         my_putstr("attack: ");
         if (!get_next_line(&line, 0))
@@ -63,6 +62,7 @@ int play_my_turn(pid_t player_pid, navy_t *enemy_navy)
         square = (1 << 6);
     else
         square = (pos.x << 3) | pos.y;
+    my_usleep(2000);
     if (!send_number(player_pid, square, 7) || square == (1 << 6))
         return (false);
     status = receive_number(player_pid, 2);

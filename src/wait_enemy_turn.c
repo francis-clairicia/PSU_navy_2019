@@ -17,7 +17,6 @@ int wait_enemy_turn(pid_t player_pid, navy_t *my_navy)
 
     my_putstr("waiting for enemy's attack...\n");
     square = receive_number(player_pid, 7);
-    usleep(1100);
     if (square & (1 << 6))
         return (false);
     pos.x = (square >> 3) & 7;

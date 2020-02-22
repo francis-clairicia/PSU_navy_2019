@@ -9,11 +9,12 @@ SRC_NO_TEST			=	src/main.c						\
 						src/navy.c						\
 						src/gameplay.c					\
 						src/play_my_turn.c				\
-						src/wait_enemy_turn.c
+						src/wait_enemy_turn.c			\
+						src/my_usleep.c					\
+						src/signal_handler.c			\
+						src/send_receive_number.c
 
 SRC_TEST			=	src/errors.c					\
-						src/signal_handler.c			\
-						src/send_receive_number.c		\
 						src/check_navy_on_gameboard.c	\
 						src/print_gameboard.c			\
 						src/create_navy.c				\
