@@ -35,7 +35,7 @@ bool hit_my_navy(navy_t *navy, vector_t pos)
     if (navy == NULL)
         return (false);
     ship = find_ship_by_pos(navy->ships, pos, &square_index);
-    if (ship != NULL && ship->squares[square_index].destroyed  == false) {
+    if (ship != NULL && ship->squares[square_index].destroyed == false) {
         ship->squares[square_index].destroyed = true;
         check_for_destroyed_ship(ship);
         hit = true;
