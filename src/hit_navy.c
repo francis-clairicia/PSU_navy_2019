@@ -35,7 +35,7 @@ bool hit_my_navy(navy_t *navy, vector_t pos)
     if (navy == NULL)
         return (false);
     ship = find_ship_by_pos(navy->ships, pos, &square_index);
-    if (ship != NULL) {
+    if (ship != NULL && ship->squares[square_index].destroyed  == false) {
         ship->squares[square_index].destroyed = true;
         check_for_destroyed_ship(ship);
         hit = true;
@@ -47,6 +47,7 @@ bool hit_my_navy(navy_t *navy, vector_t pos)
 
 void hit_enemy_navy(navy_t *navy, vector_t pos, bool hit)
 {
-    navy->map[pos.y][pos.x] = 1 + hit;
+    if (navy->map[pos.y][pos.x] == 0)
+        navy->map[pos.y][pos.x] = 1 + hit;
     print_hit_result(pos, hit);
 }

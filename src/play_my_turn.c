@@ -16,23 +16,16 @@ static bool wrong_input(void)
     return (false);
 }
 
-static bool valid_input(char const *line, navy_t *enemy_navy)
+static bool valid_input(char const *line)
 {
-    int x = 0;
-    int y = 0;
-
     if (line == NULL || my_strlen(line) != 2)
         return (wrong_input());
     if (!my_strchr("ABCDEFGH", line[0]) || !my_strchr("12345678", line[1]))
         return (wrong_input());
-    x = line[0] - 'A';
-    y = line[1] - '1';
-    if (enemy_navy->map[y][x] != 0)
-        return (wrong_input());
     return (true);
 }
 
-static vector_t get_coords(navy_t *enemy_navy)
+static vector_t get_coords(void)
 {
     char *line = NULL;
     int x = 0;
@@ -42,7 +35,7 @@ static vector_t get_coords(navy_t *enemy_navy)
         my_putstr("attack: ");
         if (!get_next_line(&line, 0))
             return ((vector_t){-1, -1});
-    } while (!valid_input(line, enemy_navy));
+    } while (!valid_input(line));
     x = line[0] - 'A';
     y = line[1] - '1';
     free(line);
@@ -57,7 +50,7 @@ int play_my_turn(pid_t player_pid, navy_t *enemy_navy)
 
     if (enemy_navy == NULL)
         return (false);
-    pos = get_coords(enemy_navy);
+    pos = get_coords();
     if (pos.x < 0 || pos.y < 0)
         square = (1 << 6);
     else
