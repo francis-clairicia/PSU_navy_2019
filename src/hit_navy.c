@@ -40,7 +40,8 @@ bool hit_my_navy(navy_t *navy, vector_t pos)
         check_for_destroyed_ship(ship);
         hit = true;
     }
-    navy->map[pos.y][pos.x] = 1 + hit;
+    if (navy->map[pos.y][pos.x] == 0)
+        navy->map[pos.y][pos.x] = 1 + hit;
     print_hit_result(pos, hit);
     return (hit);
 }
