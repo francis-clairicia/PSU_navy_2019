@@ -54,21 +54,24 @@ static bool set_navy(int (*gb)[8],
     return (true);
 }
 
+static void init_map(int (*gb)[8])
+{
+    int i = 0;
+    int j = 0;
+
+    for (i = 0; i < 8; i += 1) {
+        for (j = 0; j < 8; j += 1)
+            gb[i][j] = 0;
+    }
+}
+
 bool check_navy_on_gameboard(char * const *positions)
 {
-    int gb[8][8] = {
-        {0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0}
-    };
+    int gb[8][8];
     int i = 0;
     char **pos = NULL;
 
+    init_map(gb);
     for (i = 0; positions[i] != NULL; i += 1) {
         pos = my_str_to_word_array(positions[i], ":");
         if (pos == NULL || !set_navy(gb, pos[0], pos[1], pos[2])) {
